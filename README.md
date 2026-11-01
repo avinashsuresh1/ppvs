@@ -1,6 +1,6 @@
 # PPVS (Physical Principles Verification System)
 
-> **Status:** Proof of Concept (PoC). This is an experimental prototype to explore the idea and is by no means complete or perfect.
+> **Status:** Proof of Concept (PoC). This is an experimental prototype to explore the idea and is by no means complete or perfect. Created using Gemini 3.8 Flash
 
 ---
 
