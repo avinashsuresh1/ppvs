@@ -1,93 +1,52 @@
-# PPVS: Physical Principles Verification System
+# PPVS (Physical Principles Verification System)
 
-> **"Formalizing Physics into an Executable Specification & Backward-Compatibility Test Harness."**
-
----
-
-## 1. Philosophy & Epistemology
-
-In mathematics, proof assistants like **Lean** and **Coq** treat mathematical truth as type-checking: propositions are types, and proofs are terms that inhabit them.
-
-**PPVS** establishes an analogous formal foundation for **Physics**:
-1. **Explainability Mapping $E(t)$**:
-   Let $\mathcal{P}$ be the set of empirically observed phenomena and $\mathcal{T}$ the space of theories.
-   The explainability mapping:
-   $$E: \mathcal{T} \to \mathcal{P}(\mathcal{P})$$
-   assigns to each theory $t$ the set of phenomena that $t$ successfully predicts within experimental tolerance.
-2. **Theory Progression Algebra**:
-   If an established prior theory $t_1$ explains phenomenon set $p_1 = E(t_1)$, then any valid successor candidate $t_2$ must satisfy:
-   $$E(t_2) = p_1 \cup u$$
-   where $u = E(t_2) \setminus E(t_1) \neq \emptyset$ is the **empirical innovation** of $t_2$, and:
-   $$\text{Regressions} = E(t_1) \setminus E(t_2) = \emptyset$$
-   *Any new theory cannot afford to break existing phenomena data and hence the existing theories that explain them.*
-3. **The Normalized Relevance Metric**:
-   The scientific relevance / epistemic efficiency of any theory across the whole empirical registry is:
-   $$\text{Relevance } R(t) = \frac{\text{phenomena explained}}{\text{total known phenomena} \times \text{assumptions made}} = \frac{|E(t)|}{|\mathcal{P}_{\text{total}}| \times |A(t)|} = \frac{\text{Coverage}(t)}{|A(t)|}$$
-   Bounded in $[0, 1]$, where $1.0$ represents a single-axiom Theory of Everything explaining 100% of all known phenomena. A progressive successor must increase relevance: $R(t_2) > R(t_1)$.
-4. **The Correspondence Principle**:
-   $$\lim_{\epsilon \to 0} T_{\text{new}}(x, \epsilon) = T_{\text{prior}}(x)$$
-   A candidate theory must asymptotically reduce to prior theories in their established limits ($c \to \infty$, $\hbar \to 0$, $G \to 0$).
+> **Status:** Proof of Concept (PoC). This is an experimental prototype to explore the idea and is by no means complete or perfect.
 
 ---
 
-## 2. Core Architecture
+## The Idea
 
-```
-┌────────────────────────────────────────────────────────┐
-│            4. Compatibility & Correspondence           │
-│   (Asymptotic Limits: T_new → T_prior as ε → 0)        │
-├────────────────────────────────────────────────────────┤
-│           3. Empirical Phenomenon Registry             │
-│   (Regression Test Suite: Orbits, Spectra, Lifetimes)  │
-├────────────────────────────────────────────────────────┤
-│             2. Formal Physical Theories                │
-│   (Axioms, Symmetries, Lagrangians, State Spaces)      │
-├────────────────────────────────────────────────────────┤
-│      1. Type System, Dimensions & Manifolds            │
-│   (Dimensional Safety, Tensor Ranks, Coordinates)      │
-└────────────────────────────────────────────────────────┘
-```
+In software engineering, continuous integration runs a test suite to ensure new code does not break existing features.
 
-### Module Overview
-
-- [`ppvs::dimensions`](src/dimensions.rs): SI base dimensions ($M, L, T, I, \Theta, N, J$). Compile-time and runtime dimensional safety. Dimensional mismatch errors prevent unphysical operations.
-- [`ppvs::empirical`](src/empirical.rs): The Empirical Phenomena Registry containing benchmark measurements across all physics domains (CODATA $G$, Keplerian orbits, CERN 1977 muon dilation, Bertozzi relativistic momentum, Mercury perihelion precession, Maxwell wave speed, Coulomb force, Ideal Gas molar volume, Carnot cycle efficiency, Photoelectric stopping potential, Balmer hydrogen emission).
-- [`ppvs::theory`](src/theory.rs): Formal `Theory` trait declaring principles, symmetries ($SO(3)$, $SO(1,3)$, Galilei group, Diff($\mathcal{M}$), $U(1)$ gauge), validity regimes, and deterministic predictions.
-- [`ppvs::established`](src/established.rs): The Established Theories Registry holding the foundational pillars of physics (Newtonian Mechanics, Special Relativity, Maxwellian Electrodynamics, Classical Thermodynamics, Quantum Mechanics), and the multi-theory `CompatibilityAudit` engine.
-- [`ppvs::explainability`](src/explainability.rs): Set-theoretic explainability $E(t)$, normalized relevance metric $R(t)$, theory progression, and grand unification analysis.
-- [`ppvs::reduction`](src/reduction.rs): Asymptotic correspondence solver and backward-compatibility regression checker.
-- [`ppvs::verifier`](src/verifier.rs): Executable verification engine producing deterministic diagnostic failure reports.
-- [`ppvs::theories`](src/theories/):
-  - `NewtonianMechanics`: Classical gravity, Keplerian orbits, Galilean relativity.
-  - `SpecialRelativity`: Flat spacetime Lorentz boost, time dilation, relativistic momentum.
-  - `MaxwellianElectrodynamics`: Maxwell's field equations, wave speed $c = 1/\sqrt{\epsilon_0 \mu_0}$, Coulomb force.
-  - `ClassicalThermodynamics`: Four thermodynamic laws, ideal gas equation of state, Carnot efficiency limit.
-  - `QuantumMechanics`: Wave-particle duality, photoelectric effect, Balmer hydrogen spectral series.
-  - `GeneralRelativity`: Spacetime curvature, 1PN orbital dynamics, Mercury precession excess ($42.98''/\text{century}$).
-  - `FlawedMomentumTheory`: Candidate theory with missing relativistic factors demonstrating diagnostic failure reporting.
-- [`ppvs::theories`](src/theories/):
-  - `NewtonianMechanics`: Classical gravity, Keplerian orbits, Galilean relativity.
-  - `SpecialRelativity`: Flat spacetime Lorentz boost, time dilation, relativistic momentum.
-  - `GeneralRelativity`: Spacetime curvature, 1PN orbital dynamics, Mercury perihelion precession.
-  - `FlawedMomentumTheory`: Negative test candidate demonstrating strict rejection by PPVS.
+**PPVS** explores applying this concept to physical theories:
+- **Empirical Benchmarks as Tests:** Well-established experimental measurements (such as planetary orbits, the speed of light, muon dilation, or atomic spectra) serve as regression tests with real experimental uncertainties.
+- **Non-Regression:** A new proposal should not contradict established empirical facts.
+- **Diagnostic Feedback:** Instead of dogmatic rejection, failed predictions report exact numerical discrepancies and $\sigma$-deviations to highlight where the model needs work.
+- **Occam's Razor:** Evaluates theories by how much they explain relative to the assumptions they make:
+  $$\text{Relevance} = \frac{\text{phenomena explained}}{\text{total known phenomena} \times \text{assumptions}}$$
+- **Correspondence Limits:** Verifies whether a candidate theory simplifies to established physics in familiar regimes (e.g., relativistic mechanics $\to$ Newtonian mechanics at low velocities $v \ll c$).
 
 ---
 
-## 3. Running Verification & Tests
+## Project Structure
 
-### Execute the PPVS Specification
+- [`src/dimensions.rs`](src/dimensions.rs): SI base dimensional safety to catch unphysical operations.
+- [`src/empirical.rs`](src/empirical.rs): A sample registry of benchmark observations across gravity, quantum/electrodynamics, and thermodynamics.
+- [`src/theory.rs`](src/theory.rs): Traits defining physical theories, principles, and predictions.
+- [`src/established.rs`](src/established.rs): Established baseline theories and compatibility auditing.
+- [`src/explainability.rs`](src/explainability.rs): Explainability set tracking and the relevance metric.
+- [`src/reduction.rs`](src/reduction.rs): Asymptotic limit checking ($T_{\text{new}} \to T_{\text{prior}}$).
+- [`src/verifier.rs`](src/verifier.rs): Test harness that runs theories against benchmarks and outputs failure diagnostics.
+- [`src/theories/`](src/theories/): Example models (Newtonian, Special Relativity, Maxwell, Thermodynamics, General Relativity, Quantum, and a flawed test model).
+
+---
+
+## Quick Start
+
+### Run the Verification Demo
 ```powershell
 cargo run
 ```
 
-### Run Deterministic Test Suite
+### Run the Test Suite
 ```powershell
 cargo test
 ```
-All 14 unit and integration tests run deterministically across:
-- Dimensional arithmetic & error safety
-- Empirical registry & uncertainty z-score calculations
-- Theory predictions against empirical benchmarks
-- Asymptotic correspondence limits ($v/c \to 0$)
-- Backward-compatibility regression prevention
-- Strict rejection of broken candidate theories
+
+---
+
+## Limitations
+
+- **Prototype Scope:** Covers a curated set of 11 benchmark measurements and simplified analytical models to demonstrate the workflow.
+- **Approximations:** Uses closed-form approximations (e.g., 1PN orbital corrections, ideal gas laws) rather than general numerical field solvers.
+- **Early Stage:** Intended as a starting point for discussion on how automated testing and formal specification could assist theoretical physics.
