@@ -212,7 +212,7 @@ impl TheoryUnification {
 
 /// Computes the Normalized Relevance of a theory:
 ///
-/// Relevance = (phenomena explained) / (total known phenomena * assumptions made to explain them)
+/// Relevance = (number of phenomena explained) / (total known phenomena * assumptions made to explain them)
 ///
 /// R(t) = |E(t)| / (|P_total| * |A(t)|)
 ///

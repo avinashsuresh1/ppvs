@@ -13,7 +13,7 @@ In software engineering, continuous integration runs a test suite to ensure new 
 - **Non-Regression:** A new proposal should not contradict established empirical facts.
 - **Diagnostic Feedback:** Instead of dogmatic rejection, failed predictions report exact numerical discrepancies and $\sigma$-deviations to highlight where the model needs work.
 - **Occam's Razor:** Evaluates theories by how much they explain relative to the assumptions they make:
-  $$\text{Relevance} = \frac{\text{phenomena explained}}{\text{total known phenomena} \times \text{assumptions}}$$
+  $$\text{Relevance} = \frac{\text{number of phenomena explained}}{\text{total known phenomena} \times \text{assumptions}}$$
 - **Correspondence Limits:** Verifies whether a candidate theory simplifies to established physics in familiar regimes (e.g., relativistic mechanics $\to$ Newtonian mechanics at low velocities $v \ll c$).
 
 ---

@@ -49,7 +49,7 @@ fn main() {
     let report_newton = verifier.verify(&newton, &registry, None);
     print_report(&report_newton);
     let r_newton = ppvs::explainability::calculate_relevance(&newton, &registry, 3.0);
-    println!("  --> Relevance: R(t) = (phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
+    println!("  --> Relevance: R(t) = (number of phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
         report_newton.passed_phenomena, registry.len(), newton.principles().len(), r_newton, (report_newton.passed_phenomena as f64 / registry.len() as f64) * 100.0);
 
     // 2. Verify Special Relativity & Asymptotic Correspondence to Newton
@@ -70,7 +70,7 @@ fn main() {
     let report_maxwell = verifier.verify(&maxwell, &registry, None);
     print_report(&report_maxwell);
     let r_maxwell = ppvs::explainability::calculate_relevance(&maxwell, &registry, 3.0);
-    println!("  --> Relevance: R(t) = (phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
+    println!("  --> Relevance: R(t) = (number of phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
         report_maxwell.passed_phenomena, registry.len(), maxwell.principles().len(), r_maxwell, (report_maxwell.passed_phenomena as f64 / registry.len() as f64) * 100.0);
 
     // 4. Verify Classical Thermodynamics & Statistical Mechanics
@@ -82,7 +82,7 @@ fn main() {
     let report_thermo = verifier.verify(&thermo, &registry, None);
     print_report(&report_thermo);
     let r_thermo = ppvs::explainability::calculate_relevance(&thermo, &registry, 3.0);
-    println!("  --> Relevance: R(t) = (phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
+    println!("  --> Relevance: R(t) = (number of phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
         report_thermo.passed_phenomena, registry.len(), thermo.principles().len(), r_thermo, (report_thermo.passed_phenomena as f64 / registry.len() as f64) * 100.0);
 
     // 5. Verify Quantum Mechanics & Atomic Physics
@@ -94,7 +94,7 @@ fn main() {
     let report_quantum = verifier.verify(&quantum, &registry, None);
     print_report(&report_quantum);
     let r_quantum = ppvs::explainability::calculate_relevance(&quantum, &registry, 3.0);
-    println!("  --> Relevance: R(t) = (phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
+    println!("  --> Relevance: R(t) = (number of phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
         report_quantum.passed_phenomena, registry.len(), quantum.principles().len(), r_quantum, (report_quantum.passed_phenomena as f64 / registry.len() as f64) * 100.0);
 
     println!("\n  --> Checking Asymptotic Correspondence: SR -> Newton as v/c -> 0");
@@ -136,7 +136,7 @@ fn main() {
     let report_gr = verifier.verify(&gr, &registry, Some(&newton));
     print_report(&report_gr);
     let r_gr = ppvs::explainability::calculate_relevance(&gr, &registry, 3.0);
-    println!("  --> Relevance: R(t) = (phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
+    println!("  --> Relevance: R(t) = (number of phenomena explained) / (total known * assumptions) = {} / ({} * {}) = {:.4} ({:.1}% coverage)",
         report_gr.passed_phenomena, registry.len(), gr.principles().len(), r_gr, (report_gr.passed_phenomena as f64 / registry.len() as f64) * 100.0);
 
     // Theory Progression Analysis: E(t1) vs E(t2)
